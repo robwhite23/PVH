@@ -7,7 +7,7 @@ using namespace std;
 
 int main(array<System::String ^> ^args)
 {
-	
+
 	Game PvH;
 	PvH.start();
 	
@@ -33,6 +33,7 @@ void Game::start(void)
 						case 'p':
 							//display the Play screen
 							this->menu.EnterPlayscreen();
+							this->b.print_board();
 							break;
 
 						case 'l':
@@ -97,7 +98,5 @@ void Game::start(void)
 		
 	}//end while
 	cout << "you've exited the game." << endl;
-
-	
 }
 

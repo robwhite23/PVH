@@ -1,6 +1,8 @@
 #pragma once
 #include "Keyboard.h"
 #include "Menu.h"
+#include "Board.h"
+#include<vector>
 
 
 typedef struct {
@@ -43,13 +45,6 @@ private:
 	const bool CPU_controlled = true;
 };
 
-class Board{
-public:
-
-private:
-	char board[10][10];
-	
-};
 
 
 class Game{
