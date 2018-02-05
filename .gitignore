@@ -1,0 +1,15 @@
+
+*.ipch
+*.sdf
+*.exe
+*.pdb
+*.suo
+*.opensdf
+*.metagen
+PlayerVSHunter/PlayerVSHunter/Debug/.NETFramework,Version=v4.5.AssemblyAttributes.obj
+*.obj
+*.res
+*.log
+*.tlog
+*.cache
+*.pch
