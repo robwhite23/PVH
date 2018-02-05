@@ -25,28 +25,23 @@ void Game::start(void)
 		switch (menu.Getcurrentscreen()) 
 		{
 			case HOME:
-				//cout << "your in the home menu" << endl;
+				//wait for a key press
 				this->Keyinput = this->keyboard.getkeypress();
+				//action the key press
 				switch (Keyinput)
 				{
 						case 'p':
-							//cout << "you selected Play" << endl;
-							this->menu.Setcurrentscreen(PLAY);
-							menu.clear_lines(5, 5);
-							cout << PLAY_MENU_TEXT << endl;
-							cout << PLAY_USR_INSTRUCTIONS << endl;
+							//display the Play screen
+							this->menu.EnterPlayscreen();
 							break;
 
 						case 'l':
-							//cout << "you selected Leaderboard" << endl;
-							this->menu.Setcurrentscreen(LEADERBOARD);
-							menu.clear_lines(5, 5);
-							cout << LEADERBOARD_MENU_TEXT << endl;
-							cout << LBOARD_USR_INSTRUCTIONS << endl;
+							//display the leaderboard screen;
+							this->menu.EnterLeaderboardscreen();
 							break;
 
 						case 'q':
-							//cout << "you selected Quit" << endl;
+							//quit the application;
 							quit = true;
 							break;
 
@@ -59,16 +54,14 @@ void Game::start(void)
 				break;       
 
 			case LEADERBOARD: 
-				//cout << "your in the leaderboard menu" << endl;
+				//whilst in the leaderboard menu; wait for key press;
 				this->Keyinput = this->keyboard.getkeypress();
+				//action key press 
 				switch (this->Keyinput)
 				{
 						case 'q':
-							//cout << "you selected Quit" << endl;
-							this->menu.Setcurrentscreen(HOME);
-							menu.clear_lines(5, 5);
-							cout << HOME_MENU_TEXT << endl;
-							cout << HOME_USR_INSTRUCTIONS << endl;
+							//display the home menu;
+							this->menu.EnterHomescreen();
 							break;
 
 						default:
@@ -80,16 +73,14 @@ void Game::start(void)
 				break;
 
 			case PLAY:
-				//cout << "your in the play menu" << endl;
+				//whilst in play menu wait for key press.
 				this->Keyinput = this->keyboard.getkeypress();
+				//action key press
 				switch (this->Keyinput)
 				{
 						case 'q':
-							cout << "you selected Quit" << endl;
-							this->menu.Setcurrentscreen(HOME);
-							menu.clear_lines(5, 5);
-							cout << HOME_MENU_TEXT << endl;
-							cout << HOME_USR_INSTRUCTIONS << endl;
+							// display the home menu;
+							this->menu.EnterHomescreen();
 							break;
 
 						default:

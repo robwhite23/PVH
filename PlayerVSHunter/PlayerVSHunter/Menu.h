@@ -23,10 +23,14 @@ class Menu {
 public:
 	Menu() : current_screen(HOME){};
 	void DisplayMainMenu();
+	void EnterPlayscreen();
+	void EnterLeaderboardscreen();
+	void EnterHomescreen();
 	void Setcurrentscreen(eScreen val);
-	eScreen Getcurrentscreen() const;
 	void pos(short C, short R);
 	void clear_lines(short start_line, short no_of_lines);
+	eScreen Getcurrentscreen() const;
+	
 private:
 	eScreen current_screen;
 
