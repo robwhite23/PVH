@@ -33,7 +33,7 @@ void Game::start(void)
 						case 'p':
 							//display the Play screen
 							this->menu.EnterPlayscreen();
-							this->b.print_board();
+							this->board.print_board();
 							break;
 
 						case 'l':
