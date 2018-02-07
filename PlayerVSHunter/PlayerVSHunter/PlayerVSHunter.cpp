@@ -7,7 +7,6 @@ using namespace std;
 
 int main(array<System::String ^> ^args)
 {
-
 	Game PvH;
 	PvH.start();
 	
@@ -33,7 +32,6 @@ void Game::start(void)
 						case 'p':
 							//display the Play screen
 							this->menu.EnterPlayscreen();
-							this->board.print_board();
 							break;
 
 						case 'l':
@@ -79,6 +77,11 @@ void Game::start(void)
 				//action key press
 				switch (this->Keyinput)
 				{
+						case 'p':
+							// display the home menu;
+							this->PlayLevel(5);
+							break;
+
 						case 'q':
 							// display the home menu;
 							this->menu.EnterHomescreen();
@@ -100,3 +103,24 @@ void Game::start(void)
 	cout << "you've exited the game." << endl;
 }
 
+void Game::PlayLevel(int Level){
+
+	Board_Pos hunter_pos;
+
+	//create hunters for level
+	for (int idx = 0; idx < Level; idx++)
+	{
+		hunter_pos.x = (char)idx;
+		hunter_pos.y = 0u;
+		hunters.push_back(Hunter(hunter_pos,'H'));
+	}
+	
+	for (Hunter &hunter: hunters)
+	{
+		//TO DO: Implement hunter get functions
+		this->board.bvect[hunter.GetBoard_Pos().y][hunter.GetBoard_Pos().x] = hunter.GetIcon();
+	}
+
+	this->board.print_board();
+		
+}

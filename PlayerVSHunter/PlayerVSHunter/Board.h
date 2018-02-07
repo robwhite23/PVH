@@ -1,6 +1,8 @@
 #pragma once
 #include <vector>
 using namespace std;
+
+#define BOARD_DIMENSION 10
 class Board{
 public:
 	
