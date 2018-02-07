@@ -15,10 +15,17 @@
 #define LBOARD_USR_INSTRUCTIONS "Exit (q)"
 #define HOME_USR_INSTRUCTIONS "Play (p) \nLeaderboard (l) \nExit (q)"
 #define BLANK_LINE "                                                                   "
-
-
 #define ERROR_MSG "oops.. something went wrong \nbye."
+
 enum eScreen { HOME, LEADERBOARD, PLAY };
+
+/*!
+@brief Used to manipulate the console so a menu system is possible.
+It contains a number of functions to navigate the menu's, control
+the console curser position and clear the dislay.
+
+@returns N/A
+*/
 class Menu {
 public:
 	Menu() : current_screen(HOME){};

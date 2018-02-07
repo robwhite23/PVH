@@ -3,8 +3,12 @@
 #include "stdafx.h"
 #include "PlayerVSHunter.h"
 
-using namespace std;
+/*!
+@brief Main application entry point. Instanciates the game and calls
+the Game::Start function (starts the game main thread).
 
+@returns N/A
+*/
 int main(array<System::String ^> ^args)
 {
 	Game PvH;
@@ -14,13 +18,19 @@ int main(array<System::String ^> ^args)
 }
 
 
+/*!
+@brief Contains the high level control flow of the game. Uses a number of 
+state machines to control the menu system and action the user inputs.
+
+@returns N/A
+*/
 void Game::start(void)
 {
-	bool quit = false;
+	bool quit = false; //when true exit whole application
 	this->menu.DisplayMainMenu();
 	while (false == quit ){
 		
-		menu.Getcurrentscreen();
+		//top level state machine to switch to current menu 
 		switch (menu.Getcurrentscreen()) 
 		{
 			case HOME:
@@ -103,6 +113,13 @@ void Game::start(void)
 	cout << "you've exited the game." << endl;
 }
 
+
+/*!
+@brief implements the level functionality. 
+@Input takes in the desired level to play. This value is used to dynamically create the
+desired level and difficulty. For example, level 5 = 5 hunter etc.
+@returns N/A
+*/
 void Game::PlayLevel(int Level){
 
 	Board_Pos hunter_pos;
