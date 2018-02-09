@@ -120,23 +120,25 @@ void Game::start(void)
 desired level and difficulty. For example, level 5 = 5 hunter etc.
 @returns N/A
 */
+
 void Game::PlayLevel(int Level){
 
 	Board_Pos hunter_pos;
 
-	//create hunters for level
-	for (int idx = 0; idx < Level; idx++)
-	{
-		hunter_pos.x = (char)idx;
-		hunter_pos.y = 0u;
-		hunters.push_back(Hunter(hunter_pos,'H'));
-	}
-	//Add hunters to the board in their respective locations
-	for (Hunter &hunter: hunters)
-	{
-		this->board.bvect[hunter.GetBoard_Pos().y][hunter.GetBoard_Pos().x] = hunter.GetIcon();
-	}
+	srand((int)GetTickCount());
 
+	//create hunters for level
+	for (int idx = 0; idx < Level ; idx++)
+	{
+		hunter_pos.x = idx;
+		hunter_pos.y = 0u;
+		//push hunter into vector pre-loaded with random board pos
+		hunters.push_back(Hunter(this->board.Rand_board_pos(), 'H'));
+		//Add hunters to the board in their respective locations
+		this->board.bvect[hunters.at(idx).GetBoard_Pos().y][hunters.at(idx).GetBoard_Pos().x] = 
+			hunters.at(idx).GetIcon();
+	}
+	
 	this->board.print_board();
 		
 }

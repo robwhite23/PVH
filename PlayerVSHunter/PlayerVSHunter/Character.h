@@ -1,10 +1,5 @@
 #pragma once
-
-//struct used to hold x and y coordinates
-typedef struct {
-	char x;
-	char y;
-}Board_Pos;
+#include "Board.h"
 
 /*!
 @brief Character class which contains all variables and functions which

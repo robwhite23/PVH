@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include <iostream>
+#include <Windows.h>
+#include <stdlib.h>
 #include "Board.h"
 
 
@@ -47,4 +49,83 @@ void Board::print_board(){
 	}
 	//print line of underscores indicating bottom of board
 	for (int i = 0; i < (bx * 2); i++) { cout << '_'; }
+}
+
+
+/*!
+@brief Generates a Random board position between the max and min input arguments.
+
+@returns random Board_Pos
+*/
+Board_Pos Board::Rand_board_pos(int xMax, int xMin, int yMax, int yMin)
+{
+	Board_Pos RandPos;
+	int Xrand, Yrand;
+	int tries = 0;
+
+	//try to find a random position thats not taken until the try count is exceeeded
+	do
+	{
+		//Generate random number between min and max
+		Xrand = rand() % (xMax - xMin + 1) + xMin;
+		//Generate random number between 0 and yseed
+		Yrand = rand() % (yMax - yMin + 1) + yMin;
+
+		RandPos.x = Xrand;
+		RandPos.y = Yrand;
+		tries++;
+	} while ((Check_Board_Pos(RandPos) == false) && (tries < 10));
+
+	//TO DO: Handle fail conditions i.e. if board pos can not be found.
+
+	return RandPos;
+}
+
+
+/*!
+@brief Generates a Random board position using the current board dimensions
+as the min and max values. Uses the system time as seed.  
+@returns random Board_Pos
+*/
+Board_Pos Board::Rand_board_pos()
+{
+	Board_Pos RandPos;
+	int Xrand, Yrand;
+	int tries = 0;
+
+	//try to find a random position thats not taken until the try count is exceeeded
+	do 
+	{
+		//Generate random number between 0 and current board x dimension
+		//it is bx - 1 because the vector is 0 indexed
+		Xrand = rand() % ((bx-1)- 1);
+		//Generate random number between 0 and current board y dimension
+		Yrand = rand() % ((by-1) - 1);
+
+		RandPos.x = Xrand;
+		RandPos.y = Yrand;
+		tries++;
+	} while ((Check_Board_Pos(RandPos) == false) && (tries < 10));
+
+	//TO DO: Handle fail conditions i.e. if board pos can not be found.
+
+	return RandPos;
+}
+
+
+/*!
+@brief Checks the board to see if the input position is free.
+@returns Position free = true, Position taken = false
+*/
+bool Board::Check_Board_Pos(Board_Pos pos)
+{
+	//check if the input position contains either a hunter or a player
+	if ((this->bvect[pos.y][pos.x] == 'H') || (this->bvect[pos.y][pos.x] == 'P'))
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
 }
