@@ -131,10 +131,9 @@ void Game::PlayLevel(int Level){
 		hunter_pos.y = 0u;
 		hunters.push_back(Hunter(hunter_pos,'H'));
 	}
-	
+	//Add hunters to the board in their respective locations
 	for (Hunter &hunter: hunters)
 	{
-		//TO DO: Implement hunter get functions
 		this->board.bvect[hunter.GetBoard_Pos().y][hunter.GetBoard_Pos().x] = hunter.GetIcon();
 	}
 
