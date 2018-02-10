@@ -24,7 +24,7 @@ public:
 	
 	vector< vector <char> > bvect;		//2d char vector to contain board locations
 
-	Board_Pos GetBoardDimensions() const {Board_Pos dimension; dimension.x = bx; dimension.y = by;};
+	Board_Pos GetBoardDimensions() const;
 private:
 	int bx;			
 	int by;

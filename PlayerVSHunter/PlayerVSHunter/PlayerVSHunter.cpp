@@ -93,7 +93,7 @@ void Game::start(void)
 				{
 						case 'p':
 							// display the home menu;
-							this->PlayLevel(50);
+							this->PlayLevel(5);
 							break;
 
 						case 'q':
@@ -124,7 +124,6 @@ void Game::start(void)
 desired level and difficulty. For example, level 5 = 5 hunter etc.
 @returns N/A
 */
-
 void Game::PlayLevel(int Level){
 
 	Board_Pos hunter_pos;
@@ -151,30 +150,51 @@ void Game::PlayLevel(int Level){
 	//print the board and the contents to the console.
 	this->board.print_board();
 
-	for (int idx = 0; idx < Get_level_turns(); idx++){
-		
+	for (int idx = 0; idx < Get_level_turns(); idx++)
+	{
 		PlayerMove();
+		//print the board and the contents to the console.
+		this->menu.pos(0, 7);
+		this->board.print_board();
 		Sleep(100);
-	}
-		
+	}		
 }
 
+
+/*!
+@brief waits for the user to press an arrow key to move the player.
+
+@return n/a
+*/
 void Game::PlayerMove(void){
 	
-	Determine_move_from_keypress();
+	//wait for an arrow key press
+	this->ArrowKeyinput = this->keyboard.getarrowkeypress();
+	switch (ArrowKeyinput)
+	{
+		case UP:
+			P1.MoveUp(this->board);
+			break;
+
+		case DOWN:
+			P1.MoveDown(this->board);
+			break;
+
+		case LEFT:
+			P1.MoveLeft(this->board);
+			break;
+
+		case RIGHT:
+			P1.MoveRight(this->board);
+			break;
+
+		default:
+			menu.pos(0, 9);
+			cout << ERROR_MSG << endl;
+			break;
+	}
 }
 
-void Game::Determine_move_from_keypress(void){
-	//wait for a key press
-	eArrowKey temp;
-	temp = this->keyboard.getarrowkeypress();
-	if (temp == UP){
-		cout << "up" << endl;
-	}
-	else if (temp == DOWN){
-		cout << "down" << endl;
-	}
 
-}
 
 

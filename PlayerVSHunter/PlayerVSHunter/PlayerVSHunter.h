@@ -22,7 +22,6 @@ public:
 	void start(void);
 	void PlayLevel(int level);
 	void PlayerMove(void);
-	void Determine_move_from_keypress(void);
 	int Get_level_turns(void) const { return level_turns; };
 	void Set_level_turns(int turns){ this->level_turns = turns; };
 		
@@ -33,6 +32,7 @@ private:
 	Player P1;							//the player controlled character
 	vector <Hunter> hunters;			//Dynamically stores the required amount of hunter characters.
 	char Keyinput;						//Stores the most recent keyboard input
+	eArrowKey ArrowKeyinput;			//stores the most recent arrow key input
 	int score;							//contains the current player score
 	int level_turns;					//the amount of turns required to complete current level.
 };

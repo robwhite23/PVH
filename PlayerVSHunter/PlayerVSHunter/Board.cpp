@@ -129,3 +129,17 @@ bool Board::Check_Board_Pos(Board_Pos pos)
 		return true;
 	}
 }
+
+
+/*!
+@brief getter function to return the board dimension
+
+@return board dimension.
+*/
+Board_Pos Board::GetBoardDimensions() const 
+{
+	Board_Pos dimension; 
+	dimension.x = bx;
+	dimension.y = by; 
+	return dimension;
+}
