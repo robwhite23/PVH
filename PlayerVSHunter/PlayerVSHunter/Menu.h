@@ -33,10 +33,12 @@ public:
 	void EnterPlayscreen();
 	void EnterLeaderboardscreen();
 	void EnterHomescreen();
-	void Setcurrentscreen(eScreen val);
 	void pos(short C, short R);
 	void clear_lines(short start_line, short no_of_lines);
-	eScreen Getcurrentscreen() const;
+
+	//Setter and Getter functions
+	void Menu::Setcurrentscreen(eScreen val){ this->current_screen = val; }
+	eScreen Menu::Getcurrentscreen() const{ return this->current_screen; }
 	
 private:
 	eScreen current_screen;
