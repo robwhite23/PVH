@@ -27,6 +27,10 @@ state machines to control the menu system and action the user inputs.
 void Game::start(void)
 {
 	bool quit = false; //when true exit whole application
+
+	//seed the random number generator with system tick count
+	srand((int)GetTickCount()); 
+
 	this->menu.DisplayMainMenu();
 	while (false == quit ){
 		
@@ -89,7 +93,7 @@ void Game::start(void)
 				{
 						case 'p':
 							// display the home menu;
-							this->PlayLevel(5);
+							this->PlayLevel(50);
 							break;
 
 						case 'q':
@@ -124,8 +128,8 @@ desired level and difficulty. For example, level 5 = 5 hunter etc.
 void Game::PlayLevel(int Level){
 
 	Board_Pos hunter_pos;
-
-	srand((int)GetTickCount());
+	
+	//TO DO: add protection so you cant create monsters without deleting the previous set.
 
 	//create hunters for level
 	for (int idx = 0; idx < Level ; idx++)
@@ -138,7 +142,39 @@ void Game::PlayLevel(int Level){
 		this->board.bvect[hunters.at(idx).GetBoard_Pos().y][hunters.at(idx).GetBoard_Pos().x] = 
 			hunters.at(idx).GetIcon();
 	}
-	
+
+	//set P1 start pos to random position
+	this->P1.Set_Board_Pos(this->board.Rand_board_pos());
+	this->board.bvect[this->P1.GetBoard_Pos().y][this->P1.GetBoard_Pos().x] =
+		this->P1.GetIcon();
+
+	//print the board and the contents to the console.
 	this->board.print_board();
+
+	for (int idx = 0; idx < Get_level_turns(); idx++){
+		
+		PlayerMove();
+		Sleep(100);
+	}
 		
 }
+
+void Game::PlayerMove(void){
+	
+	Determine_move_from_keypress();
+}
+
+void Game::Determine_move_from_keypress(void){
+	//wait for a key press
+	eArrowKey temp;
+	temp = this->keyboard.getarrowkeypress();
+	if (temp == UP){
+		cout << "up" << endl;
+	}
+	else if (temp == DOWN){
+		cout << "down" << endl;
+	}
+
+}
+
+

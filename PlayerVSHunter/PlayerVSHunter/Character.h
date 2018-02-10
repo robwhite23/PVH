@@ -18,10 +18,10 @@ public:
 	void SetIcon(char icon) { Board_Icon = icon; };
 	char GetIcon(void) const { return Board_Icon; };
 	Board_Pos GetBoard_Pos(void) const { return current_pos; };
-	void MoveLeft(void);
-	void MoveRight(void);
-	void MoveUp(void);
-	void MoveDown(void);
+	bool MoveLeft(void);
+	bool MoveRight(void);
+	bool MoveUp(void);
+	bool MoveDown(void);
 protected:
 
 	char Board_Icon;
@@ -36,7 +36,7 @@ class does not need to initialise the starting position at instanciation
 class Player : public Character{
 public:
 	Player(char icon) : Character(icon){};
-
+	void Set_Board_Pos(Board_Pos pos){ current_pos = pos; };
 
 private:
 	const bool CPU_controlled = false;
