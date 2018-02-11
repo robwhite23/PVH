@@ -20,7 +20,7 @@ public:
 	void print_board(void);
 	Board_Pos Rand_board_pos();
 	Board_Pos Rand_board_pos(int xMax, int xMin, int yMax, int yMin);
-	bool Check_Board_Pos(Board_Pos pos);
+	char Check_Board_Pos(Board_Pos pos);
 	
 	vector< vector <char> > bvect;		//2d char vector to contain board locations
 

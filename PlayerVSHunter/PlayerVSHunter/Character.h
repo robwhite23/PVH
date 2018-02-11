@@ -1,6 +1,7 @@
 #pragma once
 #include "Board.h"
 
+
 /*!
 @brief Character class which contains all variables and functions which
 are used in all playable(player), non playable(cpu) and consumable characters.
@@ -18,10 +19,10 @@ public:
 	void SetIcon(char icon) { Board_Icon = icon; };
 	char GetIcon(void) const { return Board_Icon; };
 	Board_Pos GetBoard_Pos(void) const { return current_pos; };
-	bool MoveLeft(Board &board);
-	bool MoveRight(Board &board);
-	bool MoveUp(Board &board);
-	bool MoveDown(Board &board);
+	char MoveLeft(Board &board);
+	char MoveRight(Board &board);
+	char MoveUp(Board &board);
+	char MoveDown(Board &board);
 	void Set_Board_Pos(Board_Pos pos){ current_pos = pos; };
 protected:
 

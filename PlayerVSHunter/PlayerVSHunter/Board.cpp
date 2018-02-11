@@ -74,7 +74,7 @@ Board_Pos Board::Rand_board_pos(int xMax, int xMin, int yMax, int yMin)
 		RandPos.x = Xrand;
 		RandPos.y = Yrand;
 		tries++;
-	} while ((Check_Board_Pos(RandPos) == false) && (tries < 10));
+	} while ((Check_Board_Pos(RandPos) != 0u) && (tries < 10));
 
 	//TO DO: Handle fail conditions i.e. if board pos can not be found.
 
@@ -105,7 +105,7 @@ Board_Pos Board::Rand_board_pos()
 		RandPos.x = Xrand;
 		RandPos.y = Yrand;
 		tries++;
-	} while ((Check_Board_Pos(RandPos) == false) && (tries < 10));
+	} while ((Check_Board_Pos(RandPos) != 0u) && (tries < 10));
 
 	//TO DO: Handle fail conditions i.e. if board pos can not be found.
 
@@ -115,18 +115,19 @@ Board_Pos Board::Rand_board_pos()
 
 /*!
 @brief Checks the board to see if the input position is free.
-@returns Position free = true, Position taken = false
+@returns if position is free returns 0u. if position is taken,
+it returns the icon of what character is in the position. i.e 'H' or 'P'
 */
-bool Board::Check_Board_Pos(Board_Pos pos)
+char Board::Check_Board_Pos(Board_Pos pos)
 {
 	//check if the input position contains either a hunter or a player
-	if ((this->bvect[pos.y][pos.x] == 'H') || (this->bvect[pos.y][pos.x] == 'P'))
+	if (this->bvect[pos.y][pos.x] == ' ' )
 	{
-		return false;
+		return 0u;
 	}
 	else
 	{
-		return true;
+		return this->bvect[pos.y][pos.x];
 	}
 }
 

@@ -93,7 +93,7 @@ void Game::start(void)
 				{
 						case 'p':
 							// display the home menu;
-							this->PlayLevel(5);
+							this->PlayLevel(30);
 							break;
 
 						case 'q':
@@ -128,8 +128,9 @@ void Game::PlayLevel(int Level){
 
 	Board_Pos hunter_pos;
 	
-	//TO DO: add protection so you cant create monsters without deleting the previous set.
-
+	//empty the hunter vector
+	if (this->hunters.size() != 0) this->hunters.clear();
+	
 	//create hunters for level
 	for (int idx = 0; idx < Level ; idx++)
 	{
@@ -157,7 +158,9 @@ void Game::PlayLevel(int Level){
 		this->menu.pos(0, 7);
 		this->board.print_board();
 		Sleep(100);
-	}		
+	}	
+	//empty the hunter vector
+	this->hunters.clear();
 }
 
 
@@ -173,19 +176,35 @@ void Game::PlayerMove(void){
 	switch (ArrowKeyinput)
 	{
 		case UP:
-			P1.MoveUp(this->board);
+			if (P1.MoveUp(this->board) == 'H'){
+				this->menu.pos(0, 20);
+				cout << "hunter killed you";
+				this->menu.pos(0, 7);
+			}
 			break;
 
 		case DOWN:
-			P1.MoveDown(this->board);
+			if (P1.MoveDown(this->board) == 'H'){
+				this->menu.pos(0, 20);
+				cout << "hunter killed you";
+				this->menu.pos(0, 7);
+			}
 			break;
 
 		case LEFT:
-			P1.MoveLeft(this->board);
+			if (P1.MoveLeft(this->board) == 'H'){
+				this->menu.pos(0, 20);
+				cout << "hunter killed you";
+				this->menu.pos(0, 7);
+			}
 			break;
 
 		case RIGHT:
-			P1.MoveRight(this->board);
+			if (P1.MoveRight(this->board) == 'H'){
+				this->menu.pos(0, 20);
+				cout << "hunter killed you";
+				this->menu.pos(0, 7);
+			}
 			break;
 
 		default:
