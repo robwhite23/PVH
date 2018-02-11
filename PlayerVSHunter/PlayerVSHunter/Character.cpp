@@ -156,3 +156,48 @@ char Character::MoveDown(Board &board)
 	return -1;
 }
 
+
+/*!
+@brief Moves the hunter up, down, left or right depending on the result
+of a random number generator.
+@returns a char. -1 if the random position doesnt exist. The icon of 
+the character if the random position was taken. 0 if the Hunter moved
+sucessfully.
+*/
+char Hunter::MoveRandom(Board &board)
+{
+	Board_Pos pos, newpos;
+	int randmove;
+	char tryResult;
+	
+	//Generate random number between 0 and 4
+	randmove = rand() % (4);
+	switch (randmove)
+	{
+		case 0 :
+			//try moving Up
+			tryResult = this->MoveUp(board);
+			break;
+
+		case 1:
+			//try moving Down
+			tryResult = this->MoveDown(board);
+			break;
+
+		case 2:
+			//try moving left
+			tryResult = this->MoveLeft(board);
+			break;
+
+		case 3:
+			//try moving Right
+			tryResult = this->MoveRight(board);
+			break;
+
+		default :
+			//indicate that we could not move as pos didnt exist
+			return -1;
+	}
+	return tryResult;
+}
+

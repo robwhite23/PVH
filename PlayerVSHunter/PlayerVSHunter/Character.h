@@ -52,7 +52,7 @@ needs to initialise the starting position of the character.
 class Hunter : public Character{
 public:
 	Hunter(Board_Pos starting_pos, char icon) : Character(starting_pos, icon) {};
-	void MoveRandom(void);
+	char MoveRandom(Board &board);
 
 private:
 	const bool CPU_controlled = true;

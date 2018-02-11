@@ -93,7 +93,7 @@ void Game::start(void)
 				{
 						case 'p':
 							// display the home menu;
-							this->PlayLevel(30);
+							this->PlayLevel(15);
 							break;
 
 						case 'q':
@@ -154,6 +154,7 @@ void Game::PlayLevel(int Level){
 	for (int idx = 0; idx < Get_level_turns(); idx++)
 	{
 		PlayerMove();
+		HuntersMove();
 		//print the board and the contents to the console.
 		this->menu.pos(0, 7);
 		this->board.print_board();
@@ -212,6 +213,47 @@ void Game::PlayerMove(void){
 			cout << ERROR_MSG << endl;
 			break;
 	}
+}
+
+
+/*!
+@brief iterates through each hunter and calls the move random function until
+a sucessful move was completed or the number tries expires.
+@return n/a
+*/
+void Game::HuntersMove(void){
+	 
+	int MoveFailTotal = 0;
+	//iterate through hunters by reference so actual hunters value will change
+	for (Hunter &idx: hunters)
+	{
+		char RandMoveResult;
+		int tries = 0;
+		//try to complete a random move until successful or tries exceeds limit
+		do 
+		{
+			RandMoveResult = idx.MoveRandom(this->board);
+			tries++;
+		} while (((RandMoveResult != 0u) || (RandMoveResult != this->P1.GetIcon()))&& tries <= 6);
+		
+		//keep a count of the number of times a hunter couldnt move
+		if (tries > 5)
+		{
+			MoveFailTotal++;
+		}
+		if (RandMoveResult == 'P')
+		{
+			//debug output
+			this->menu.pos(0, 23);
+			cout << "Hunter has killed you";
+			this->menu.pos(0, 7);
+		}
+
+	}
+	//debug output
+	this->menu.pos(0, 22);
+	cout << "number of hunters not moved: " << MoveFailTotal;
+	this->menu.pos(0, 7);
 }
 
 

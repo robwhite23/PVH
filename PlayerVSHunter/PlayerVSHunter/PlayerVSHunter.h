@@ -19,6 +19,7 @@ public:
 	void start(void);
 	void PlayLevel(int level);
 	void PlayerMove(void);
+	void HuntersMove(void);
 	int Get_level_turns(void) const { return level_turns; };
 	void Set_level_turns(int turns){ this->level_turns = turns; };
 		
