@@ -259,7 +259,8 @@ void Game::HuntersMove(void){
 		{
 			RandMoveResult = idx.MoveRandom(this->board);
 			tries++;
-		} while (((RandMoveResult != 0u) || (RandMoveResult != this->P1.GetIcon()))&& tries <= 6);
+					//(while pos doesnt exist			or hunter already in pos)	and max tries not exceeded
+		} while (((RandMoveResult == POS_DID_NOT_EXIST) || (RandMoveResult == idx.GetIcon())) && tries <= 6);
 		
 		//keep a count of the number of times a hunter couldnt move
 		if (tries > 5)

@@ -1,6 +1,8 @@
 #pragma once
 #include "Board.h"
 
+#define POS_DID_NOT_EXIST	-1
+
 
 /*!
 @brief Character class which contains all variables and functions which

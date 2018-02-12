@@ -36,7 +36,7 @@ char Character::MoveLeft(Board &board)
 		}
 	}
 	//new board pos does not exist
-	return -1;
+	return POS_DID_NOT_EXIST;
 }
 
 
@@ -75,7 +75,7 @@ char Character::MoveRight(Board &board)
 		}
 	}
 	//new board pos does not exist
-	return -1;
+	return POS_DID_NOT_EXIST;
 }
 
 
@@ -114,7 +114,7 @@ char Character::MoveUp(Board &board)
 		}
 	}
 	//new board pos does not exist
-	return -1;
+	return POS_DID_NOT_EXIST;
 }
 
 
@@ -153,7 +153,7 @@ char Character::MoveDown(Board &board)
 		}
 	}
 	//new board pos does not exist
-	return -1;
+	return POS_DID_NOT_EXIST;
 }
 
 
@@ -196,7 +196,7 @@ char Hunter::MoveRandom(Board &board)
 
 		default :
 			//indicate that we could not move as pos didnt exist
-			return -1;
+			return POS_DID_NOT_EXIST;
 	}
 	return tryResult;
 }

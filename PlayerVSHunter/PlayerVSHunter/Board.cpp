@@ -97,7 +97,6 @@ Board_Pos Board::Rand_board_pos()
 	do 
 	{
 		//Generate random number between 0 and current board x dimension
-		//it is bx - 1 because the vector is 0 indexed
 		Xrand = rand() % (bx);
 		//Generate random number between 0 and current board y dimension
 		Yrand = rand() % (by);
