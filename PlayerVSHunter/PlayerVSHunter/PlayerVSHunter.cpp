@@ -12,7 +12,7 @@ the Game::Start function (starts the game main thread).
 int main(array<System::String ^> ^args)
 {
 	Game PvH;
-	PvH.start();
+	PvH.StartMenu();
 	
     return 0;
 }
@@ -24,7 +24,7 @@ state machines to control the menu system and action the user inputs.
 
 @returns N/A
 */
-void Game::start(void)
+void Game::StartMenu(void)
 {
 	bool quit = false; //when true exit whole application
 
@@ -92,8 +92,8 @@ void Game::start(void)
 				switch (this->Keyinput)
 				{
 						case 'p':
-							// display the home menu;
-							this->PlayLevel(15);
+							// Start the game
+							this->StartGame();
 							break;
 
 						case 'q':
@@ -119,14 +119,32 @@ void Game::start(void)
 
 
 /*!
+@brief loops through each level in the game calling play level.
+@return n/a
+*/
+void Game::StartGame(void)
+{
+	for (int idx = 1; idx <= MAX_LEVELS; idx++)
+	{
+		//To Do: Display level start menu
+		this->Level = idx;
+		this->PlayLevel(Level + DIFFICULTY);
+	}
+}
+
+/*!
 @brief implements the level functionality. 
 @Input takes in the desired level to play. This value is used to dynamically create the
 desired level and difficulty. For example, level 5 = 5 hunter etc.
+TO DO: exit when player dead.
 @returns N/A
 */
 void Game::PlayLevel(int Level){
 
-	Board_Pos hunter_pos;
+	Board_Pos hunter_pos; 
+
+	//display Level start screen
+	DisplayLevelStartScreen();
 	
 	//empty the hunter vector
 	if (this->hunters.size() != 0) this->hunters.clear();
@@ -155,6 +173,7 @@ void Game::PlayLevel(int Level){
 	{
 		PlayerMove();
 		HuntersMove();
+		this->score += MOVE_SCORE_INCREMENT;
 		//print the board and the contents to the console.
 		this->menu.pos(0, 7);
 		this->board.print_board();
@@ -162,11 +181,17 @@ void Game::PlayLevel(int Level){
 	}	
 	//empty the hunter vector
 	this->hunters.clear();
+
+	//empty bvect
+	this->board.Clear_board();
+
+	//display level complete screen
 }
 
 
 /*!
 @brief waits for the user to press an arrow key to move the player.
+TO DO: return value when player dead
 
 @return n/a
 */
@@ -244,7 +269,7 @@ void Game::HuntersMove(void){
 		if (RandMoveResult == 'P')
 		{
 			//debug output
-			this->menu.pos(0, 23);
+			this->menu.pos(0, 20);
 			cout << "Hunter has killed you";
 			this->menu.pos(0, 7);
 		}
@@ -257,5 +282,54 @@ void Game::HuntersMove(void){
 }
 
 
+/*!
+@brief Prints out a square with the current level number inside it. The square size 
+is generated from the board size. It then waits for the user to press any key before continuing.
+@return n/a
+*/
+void Game::DisplayLevelStartScreen()
+{
+	//set curser position to start of board
+	this->menu.pos(0, 7);
+
+	//print a square box the same size as the board
+	for (int i = 0; i < (this->board.GetBoardDimensions().x ); i++) { cout << "* "; }
+	cout << endl;
+	for (int i = 0; i<this->board.GetBoardDimensions().y; i++)
+	{
+		cout << '*';
+		for (int j = 0; j<board.GetBoardDimensions().x; j++)
+		{
+			if (j ==  board.GetBoardDimensions().x -1){
+				//this is last x position
+				cout << "*";
+			}
+			else{
+				//print two spaces
+				cout << "  ";
+			}
+			
+		}
+		cout << endl;
+	}
+	for (int i = 0; i < (this->board.GetBoardDimensions().x); i++) { cout << "* "; }
+
+	//find a good approximate for text in the center of the box. The x is only divided by two because the box
+	//is two spaces per x dimension. Therefore dividing by two is same as dividing by 4 in the Y dimension.
+	this->menu.pos((this->board.GetBoardDimensions().x / 2), (7 + (this->board.GetBoardDimensions().y / 2)));
+
+	cout << "LEVEL " << this->Level;
+	
+	//display instructions
+	this->menu.pos(0, 20);
+	cout << "Press any key to continue...";
+
+	//wait for a key press before continuing
+	this->Keyinput = this->keyboard.getkeypress();
+
+	this->menu.clear_lines(20, 2);
+	this->menu.pos(0, 7);
+
+}
 
 

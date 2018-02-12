@@ -133,6 +133,25 @@ char Board::Check_Board_Pos(Board_Pos pos)
 
 
 /*!
+@brief clears the board by filling each location with a space character
+.
+@returns N/A
+*/
+void Board::Clear_board(){
+	
+	//loop through board locations
+	for (int i = 0; i<by; i++)
+	{
+		for (int j = 0; j < bx; j++)
+		{
+			//empty board location
+			this->bvect[i][j] = ' ';
+		}
+	}	
+}
+
+
+/*!
 @brief getter function to return the board dimension
 
 @return board dimension.

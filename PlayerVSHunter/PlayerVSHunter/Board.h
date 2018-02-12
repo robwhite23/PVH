@@ -18,10 +18,11 @@ public:
 	
 	Board(char x = 10, char y = 10);
 	void print_board(void);
+	void Clear_board(void);
 	Board_Pos Rand_board_pos();
 	Board_Pos Rand_board_pos(int xMax, int xMin, int yMax, int yMin);
 	char Check_Board_Pos(Board_Pos pos);
-	
+
 	vector< vector <char> > bvect;		//2d char vector to contain board locations
 
 	Board_Pos GetBoardDimensions() const;
