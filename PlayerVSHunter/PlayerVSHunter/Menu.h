@@ -11,7 +11,7 @@
 #define PLAY_MENU_TEXT "                              PLAY"
 #define LEADERBOARD_MENU_TEXT "                           LEADERBOARD"
 #define HOME_MENU_TEXT "                              HOME"
-#define PLAY_USR_INSTRUCTIONS "Exit (q)"
+#define PLAY_USR_INSTRUCTIONS "Play (p) \nExit (q)"
 #define LBOARD_USR_INSTRUCTIONS "Exit (q)"
 #define HOME_USR_INSTRUCTIONS "Play (p) \nLeaderboard (l) \nExit (q)"
 #define BLANK_LINE "                                                                   "

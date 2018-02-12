@@ -39,10 +39,12 @@ class does not need to initialise the starting position at instanciation
 */
 class Player : public Character{
 public:
-	Player(char icon) : Character(icon){};
-	
+	Player(char icon) : Character(icon), playerDEAD(false){};
+	void SetPlayerDead(bool AliveorDead) { playerDEAD = AliveorDead; };
+	bool GetPlayerDead(void) const { return playerDEAD; };
 private:
 	const bool CPU_controlled = false;
+	bool playerDEAD;
 };
 
 

@@ -6,6 +6,7 @@
 #include<vector>
 
 using namespace std;
+#define PLAYER_DEAD_MSG					"** A hunter has killed you!! **"
 #define BOARD_DIMENSION 10				//used to control the x and y dimensions of the instanciated board
 #define MAX_LEVELS	30					//The maximum amount of levels currently permitted
 #define DIFFICULTY 5					//A difficulty constant used to generate the difficulty of the games levels
@@ -29,6 +30,8 @@ public:
 		
 private:
 	void DisplayLevelStartScreen(void);
+	void printscore(void);
+	void PlayerKilled(void);
 
 	Menu menu;							//the console menu 
 	Keyboard keyboard;					//enables key press reads without the need for a return character

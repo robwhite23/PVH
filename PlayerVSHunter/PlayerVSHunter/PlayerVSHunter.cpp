@@ -92,6 +92,8 @@ void Game::StartMenu(void)
 				switch (this->Keyinput)
 				{
 						case 'p':
+							this->menu.clear_lines(6, 1);
+							this->menu.pos(0, 7);
 							// Start the game
 							this->StartGame();
 							break;
@@ -124,11 +126,31 @@ void Game::StartMenu(void)
 */
 void Game::StartGame(void)
 {
-	for (int idx = 1; idx <= MAX_LEVELS; idx++)
+	//loop till all levels complete or player dead
+	while ((this->Level < MAX_LEVELS) && (this->P1.GetPlayerDead() != true))
 	{
-		//To Do: Display level start menu
-		this->Level = idx;
+		//play level
 		this->PlayLevel(Level + DIFFICULTY);
+		this->Level++;
+	}
+
+	//this is not finished
+	if (this->P1.GetPlayerDead() == false){
+		//display congratulations screen
+		this->menu.clear_lines(20, 3);
+		cout << "congrats";
+		this->Keyinput = this->keyboard.getkeypress();
+		this->menu.clear_lines(5, 18);
+		this->menu.EnterHomescreen();
+	}
+	else {
+		//display save score screen menu
+		this->menu.clear_lines(20, 3);
+		cout << "save screen";
+		this->P1.SetPlayerDead(false);
+		this->Keyinput = this->keyboard.getkeypress();
+		this->menu.clear_lines(5, 18);
+		this->menu.EnterHomescreen();
 	}
 }
 
@@ -136,7 +158,7 @@ void Game::StartGame(void)
 @brief implements the level functionality. 
 @Input takes in the desired level to play. This value is used to dynamically create the
 desired level and difficulty. For example, level 5 = 5 hunter etc.
-TO DO: exit when player dead.
+
 @returns N/A
 */
 void Game::PlayLevel(int Level){
@@ -177,21 +199,21 @@ void Game::PlayLevel(int Level){
 		//print the board and the contents to the console.
 		this->menu.pos(0, 7);
 		this->board.print_board();
-		Sleep(100);
+		this->printscore();
+		Sleep(100); 
+		//exit the loop if player dead.
+		if (this->P1.GetPlayerDead() == true){ break; }
 	}	
 	//empty the hunter vector
 	this->hunters.clear();
 
 	//empty bvect
 	this->board.Clear_board();
-
-	//display level complete screen
 }
 
 
 /*!
 @brief waits for the user to press an arrow key to move the player.
-TO DO: return value when player dead
 
 @return n/a
 */
@@ -203,38 +225,30 @@ void Game::PlayerMove(void){
 	{
 		case UP:
 			if (P1.MoveUp(this->board) == 'H'){
-				this->menu.pos(0, 20);
-				cout << "hunter killed you";
-				this->menu.pos(0, 7);
+				PlayerKilled();
 			}
 			break;
 
 		case DOWN:
 			if (P1.MoveDown(this->board) == 'H'){
-				this->menu.pos(0, 20);
-				cout << "hunter killed you";
-				this->menu.pos(0, 7);
+				PlayerKilled();
 			}
 			break;
 
 		case LEFT:
 			if (P1.MoveLeft(this->board) == 'H'){
-				this->menu.pos(0, 20);
-				cout << "hunter killed you";
-				this->menu.pos(0, 7);
+				PlayerKilled();
 			}
 			break;
 
 		case RIGHT:
 			if (P1.MoveRight(this->board) == 'H'){
-				this->menu.pos(0, 20);
-				cout << "hunter killed you";
-				this->menu.pos(0, 7);
+				PlayerKilled();
 			}
 			break;
 
 		default:
-			menu.pos(0, 9);
+			menu.pos(0, 20);
 			cout << ERROR_MSG << endl;
 			break;
 	}
@@ -269,10 +283,8 @@ void Game::HuntersMove(void){
 		}
 		if (RandMoveResult == 'P')
 		{
-			//debug output
-			this->menu.pos(0, 20);
-			cout << "Hunter has killed you";
-			this->menu.pos(0, 7);
+			PlayerKilled();
+			return;
 		}
 
 	}
@@ -334,3 +346,30 @@ void Game::DisplayLevelStartScreen()
 }
 
 
+/*!
+@brief Prints out the score to the console
+@return n/a
+*/
+void Game::printscore()
+{
+	this->menu.pos(0, 20);
+	cout << "Score : " << this->score;
+	this->menu.pos(0, 7);
+}
+
+
+/*!
+@brief sets the playerDEAD variable to true, displays the player dead msg
+and waits for a key press to indicate the users ackknowledgement
+@return n/a
+*/
+void Game::PlayerKilled()
+{
+	this->P1.SetPlayerDead(true);
+	this->menu.pos(0, 20);
+	cout << PLAYER_DEAD_MSG;
+	this->menu.pos(0, 7);
+	//wait for any key press
+	this->Keyinput = this->keyboard.getkeypress();
+
+}
